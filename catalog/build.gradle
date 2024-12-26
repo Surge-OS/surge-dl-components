@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+android {
+  namespace 'io.material.catalog'
+}
+
 dependencies {
 
   // Align kotlin versions
