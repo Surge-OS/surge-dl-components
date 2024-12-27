@@ -16,16 +16,13 @@
   -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <TextView
     android:id="@+id/header_logo"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawablePadding="4dp"
-    android:gravity="center_vertical"
     android:includeFontPadding="false"
     android:text="@string/cat_toc_header_title"
-    android:textAppearance="?attr/textAppearanceTitleLarge"
-    app:drawableStartCompat="@drawable/ic_logo_components_48px"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
