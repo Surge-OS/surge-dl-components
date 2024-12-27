@@ -171,7 +171,7 @@ subprojects {
 
 subprojects {
   version = rootProject.ext.mdcLibraryVersion
-  group = 'com.google.android.material'
+  group = 'com.jpb.surge.design'
 
   // Disable strict dependency resolution version constraints for test projects
   if (project.name.contains("tests")) {

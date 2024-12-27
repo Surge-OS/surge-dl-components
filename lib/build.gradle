@@ -278,17 +278,14 @@ afterEvaluate {
 
         artifact androidSourcesJar
 
-        groupId = 'com.google.android.material'
-        artifactId = 'material'
+        groupId = 'com.jpb.surge.design'
+        artifactId = 'design'
         version project.version
         pom {
-          name = 'Material Components for Android'
-          description = 'Material Components for Android is a static library ' +
-            'that you can add to your Android application in order to use ' +
-            'APIs that provide implementations of the Material Design specification. ' +
-            'Compatible on devices running API 21 or later.'
-          url = 'https://github.com/material-components/material-components-android'
-          inceptionYear = '2015'
+          name = 'SurgeOS Design Language'
+          description = 'Modern and easily customizable UI components, used in SurgeOS System Apps'
+          url = 'https://github.com/Surge-OS/surge-dl-components'
+          inceptionYear = '2024'
           licenses {
             license {
               name = 'The Apache Software License, Version 2.0'
@@ -298,12 +295,12 @@ afterEvaluate {
           }
           developers {
             developer {
-              name = 'The Android Open Source Project'
+              name = 'jpb'
             }
           }
           scm {
-            connection = 'scm:git:https://github.com/material-components/material-components-android.git'
-            url = 'https://github.com/material-components/material-components-android'
+            connection = 'scm:git:https://github.com/Surge-OS/surge-dl-components.git'
+            url = 'https://github.com/Surge-OS/surge-dl-components'
           }
         }
       }
