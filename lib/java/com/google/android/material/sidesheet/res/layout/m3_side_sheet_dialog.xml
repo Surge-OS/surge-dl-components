@@ -40,7 +40,8 @@
 
     <FrameLayout
         android:id="@+id/m3_side_sheet"
-        style="?attr/sideSheetModalStyle"/>
+        style="?attr/sideSheetModalStyle"
+        app:layout_behavior="@string/side_sheet_behavior"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
