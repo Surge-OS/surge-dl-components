@@ -43,8 +43,7 @@
         style="?attr/bottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        app:layout_behavior="@string/bottom_sheet_behavior"/>
+        android:layout_gravity="center_horizontal|top"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
