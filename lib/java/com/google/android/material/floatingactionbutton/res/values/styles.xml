@@ -106,8 +106,6 @@
     <item name="pressedTranslationZ">@dimen/m3_comp_fab_primary_pressed_container_elevation</item>
     <item name="fabCustomSize">@dimen/m3_comp_fab_primary_container_height</item>
     <item name="maxImageSize">@dimen/m3_comp_fab_primary_icon_size</item>
-    <item name="shapeAppearance">@macro/m3_comp_fab_primary_container_shape</item>
-    <item name="shapeAppearanceOverlay">@null</item>
     <!--Remove the motion spec and allow FloatingActionButtonImpl to create a theme-based animation-->
     <item name="showMotionSpec">@null</item>
     <item name="hideMotionSpec">@null</item>
@@ -134,8 +132,6 @@
   <style name="Base.Widget.Material3.FloatingActionButton.Small" parent="Base.Widget.Material3.FloatingActionButton">
     <item name="fabCustomSize">@dimen/m3_comp_fab_primary_small_container_height</item>
     <item name="maxImageSize">@dimen/m3_comp_fab_primary_small_icon_size</item>
-    <item name="shapeAppearance">@macro/m3_comp_fab_primary_small_container_shape</item>
-    <item name="shapeAppearanceOverlay">@null</item>
   </style>
 
   <style name="Widget.Material3.FloatingActionButton.Small.Primary" parent="Base.Widget.Material3.FloatingActionButton.Small">
@@ -159,8 +155,6 @@
   <style name="Base.Widget.Material3.FloatingActionButton.Large" parent="Base.Widget.Material3.FloatingActionButton">
     <item name="fabCustomSize">@dimen/m3_comp_fab_primary_large_container_height</item>
     <item name="maxImageSize">@dimen/m3_comp_fab_primary_large_icon_size</item>
-    <item name="shapeAppearance">@macro/m3_comp_fab_primary_large_container_shape</item>
-    <item name="shapeAppearanceOverlay">@null</item>
   </style>
 
   <style name="Widget.Material3.FloatingActionButton.Large.Primary" parent="Base.Widget.Material3.FloatingActionButton.Large">
@@ -200,7 +194,6 @@
     <item name="colorContainer">@macro/m3_comp_fab_surface_container_color</item>
     <item name="colorOnContainer">@macro/m3_comp_fab_surface_icon_color</item>
   </style>
-
   <!--
     Deprecation:
       Shape appearances in Material3 FAB styles are migrated to new shape theme attributes.
@@ -222,8 +215,6 @@
     <item name="android:stateListAnimator">@animator/m3_extended_fab_state_list_animator</item>
     <item name="iconSize">@dimen/m3_comp_extended_fab_primary_icon_size</item>
     <item name="android:textAppearance">@macro/m3_comp_extended_fab_primary_label_text_type</item>
-    <item name="shapeAppearance">@macro/m3_comp_extended_fab_primary_container_shape</item>
-    <item name="shapeAppearanceOverlay">@null</item>
     <item name="enforceMaterialTheme">true</item>
     <item name="showMotionSpec">@animator/m3_extended_fab_show_motion_spec</item>
     <item name="hideMotionSpec">@animator/m3_extended_fab_hide_motion_spec</item>
