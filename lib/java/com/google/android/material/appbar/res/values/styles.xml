@@ -180,20 +180,20 @@
 
   <style name="Widget.Material3.CollapsingToolbar" parent="Base.Widget.Material3.CollapsingToolbar">
     <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger</item>
-    <item name="expandedTitleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
-    <item name="expandedSubtitleTextAppearance">?attr/textAppearanceTitleLarge</item>
+    <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarTitle.Expanded</item>
+    <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarSubTitle.Expanded</item>
   </style>
 
   <style name="Widget.Material3.CollapsingToolbar.Medium" parent="Base.Widget.Material3.CollapsingToolbar">
     <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger_medium</item>
-    <item name="expandedTitleTextAppearance">@macro/m3_comp_app_bar_medium_title_font</item>
-    <item name="expandedSubtitleTextAppearance">?attr/textAppearanceTitleLarge</item>
+    <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarTitle.Expanded</item>
+    <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarSubTitle.Expanded</item>
   </style>
 
   <style name="Widget.Material3.CollapsingToolbar.Large" parent="Base.Widget.Material3.CollapsingToolbar">
     <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger_large</item>
-    <item name="expandedTitleTextAppearance">@macro/m3_comp_app_bar_large_title_font</item>
-    <item name="expandedSubtitleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
+    <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarTitle.Expanded</item>
+    <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.CollapsingToolbarSubTitle.Expanded</item>
   </style>
 
   <!-- Style for a M3 Toolbar. -->
@@ -262,9 +262,11 @@
 
   <style name="TextAppearance.Material3.ActionBar.Title" parent="TextAppearance.Material3.TitleLarge">
     <item name="android:textColor">@macro/m3_comp_app_bar_title_color</item>
+    <item name="android:textAlignment">center</item>
   </style>
 
   <style name="TextAppearance.Material3.ActionBar.Subtitle" parent="TextAppearance.Material3.TitleMedium">
     <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    <item name="android:textAlignment">center</item>
   </style>
 </resources>

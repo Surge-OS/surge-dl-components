@@ -317,4 +317,11 @@
     <item name="android:letterSpacing">0.166666667</item>
   </style>
 
+  <style name="TextAppearance.Material3.CollapsingToolbarTitle.Expanded" parent="TextAppearance.MaterialComponents.Headline4">
+    <item name="fontFamily">sans-serif-light</item>
+  </style>
+
+  <style name="TextAppearance.Material3.CollapsingToolbarSubTitle.Expanded" parent="TextAppearance.Material3.TitleLarge">
+    <item name="fontFamily">sans-serif-light</item>
+  </style>
 </resources>
