@@ -246,7 +246,7 @@
     <!-- TODO: Populate font families here -->
 
     <!-- Shape attributes. -->
-    <item name="shapeCornerFamily">@integer/m3_sys_shape_corner_full_corner_family</item>
+    <item name="shapeCornerFamily">@integer/m3_sys_shape_corner_medium_corner_family</item>
     <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.Material3.Corner.ExtraSmall</item>
     <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.Material3.Corner.Small</item>
     <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.Material3.Corner.Medium</item>
@@ -539,7 +539,7 @@
     <!-- TODO: Populate font families here -->
 
     <!-- Shape attributes. -->
-    <item name="shapeCornerFamily">@integer/m3_sys_shape_corner_full_corner_family</item>
+    <item name="shapeCornerFamily">@integer/m3_sys_shape_corner_medium_corner_family</item>
     <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.Material3.Corner.ExtraSmall</item>
     <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.Material3.Corner.Small</item>
     <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.Material3.Corner.Medium</item>
