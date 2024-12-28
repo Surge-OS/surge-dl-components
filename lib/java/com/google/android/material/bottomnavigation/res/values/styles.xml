@@ -74,7 +74,7 @@
     <item name="itemActiveIndicatorStyle">@style/Widget.Material3.BottomNavigationView.ActiveIndicator</item>
     <item name="itemTextAppearanceInactive">@macro/m3_comp_navigation_bar_label_text_type</item>
     <item name="itemTextAppearanceActive">@macro/m3_comp_navigation_bar_label_text_type</item>
-    <item name="itemRippleColor">@color/m3_navigation_bar_ripple_color_selector</item>
+    <item name="itemRippleColor">@android:color/transparent</item>
     <item name="itemIconSize">@dimen/m3_comp_navigation_bar_icon_size</item>
     <item name="itemIconTint">@color/m3_navigation_bar_item_with_indicator_icon_tint</item>
     <item name="itemTextColor">@color/m3_navigation_bar_item_with_indicator_label_tint</item>
@@ -99,8 +99,8 @@
 
 
   <style name="Widget.Material3.BottomNavigationView.ActiveIndicator" parent="">
-    <item name="android:width">@dimen/m3_bottom_nav_item_active_indicator_width</item>
-    <item name="android:height">@dimen/m3_bottom_nav_item_active_indicator_height</item>
+    <item name="android:width">0dp</item>
+    <item name="android:height">0dp</item>
     <item name="marginHorizontal">@dimen/m3_bottom_nav_item_active_indicator_margin_horizontal</item>
     <item name="shapeAppearance">@style/ShapeAppearance.M3.Comp.NavigationBar.ActiveIndicator.Shape</item>
     <item name="android:color">@macro/m3_comp_navigation_bar_active_indicator_color</item>
