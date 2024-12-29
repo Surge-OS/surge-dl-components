@@ -75,8 +75,7 @@
     <item name="backgroundTint">@null</item>
     <item name="elevation">@dimen/m3_navigation_rail_elevation</item>
     <item name="shapeAppearance">@style/ShapeAppearance.M3.Comp.NavigationRail.Container.Shape</item>
-    <item name="itemActiveIndicatorStyle">@style/Widget.Material3.NavigationRailView.ActiveIndicator</item>
-    <item name="itemRippleColor">@color/m3_navigation_rail_ripple_color_selector</item>
+    <item name="itemRippleColor">@android:color/transparent</item>
     <item name="itemIconSize">@dimen/m3_comp_navigation_rail_icon_size</item>
     <item name="itemIconTint">@color/m3_navigation_rail_item_with_indicator_icon_tint</item>
     <item name="itemTextColor">@color/m3_navigation_rail_item_with_indicator_label_tint</item>
@@ -91,14 +90,14 @@
   </style>
 
   <style name="Widget.Material3.NavigationRailView.ActiveIndicator" parent="">
-    <item name="android:width">@dimen/m3_navigation_rail_item_active_indicator_width</item>
-    <item name="android:height">@dimen/m3_navigation_rail_item_active_indicator_height</item>
-    <item name="marginHorizontal">@dimen/m3_navigation_rail_item_active_indicator_margin_horizontal</item>
+    <item name="android:width">0dp</item>
+    <item name="android:height">0dp</item>
+    <item name="marginHorizontal">0dp</item>
     <item name="shapeAppearance">@style/ShapeAppearance.M3.Comp.NavigationRail.ActiveIndicator.Shape</item>
     <item name="android:color">@macro/m3_comp_navigation_rail_active_indicator_color</item>
-    <item name="expandedWidth">wrap_content</item>
-    <item name="expandedHeight">@dimen/m3_navigation_rail_expanded_active_indicator_height</item>
-    <item name="expandedMarginHorizontal">@dimen/m3_navigation_rail_expanded_leading_trailing_space</item>
+    <item name="expandedWidth">0dp</item>
+    <item name="expandedHeight">0dp</item>
+    <item name="expandedMarginHorizontal">0dp</item>
   </style>
 
   <style name="ThemeOverlay.Material3.NavigationRailView" parent="">
