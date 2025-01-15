@@ -279,6 +279,15 @@ abstract class BaseSlider<
   private static final int LABEL_ANIMATION_EXIT_EASING_ATTR =
       R.attr.motionEasingEmphasizedAccelerateInterpolator;
 
+  private static final float TOP_LABEL_PIVOT_X = 0.5f;
+  private static final float TOP_LABEL_PIVOT_Y = 1.2f;
+
+  private static final float LEFT_LABEL_PIVOT_X = 1.2f;
+  private static final float LEFT_LABEL_PIVOT_Y = 0.5f;
+
+  private static final float RIGHT_LABEL_PIVOT_X = -0.2f;
+  private static final float RIGHT_LABEL_PIVOT_Y = 0.5f;
+
   @Dimension(unit = Dimension.DP)
   private static final int MIN_TOUCH_TARGET_DP = 48;
 
@@ -330,10 +339,14 @@ abstract class BaseSlider<
   private int trackCornerSize;
   private int trackInsideCornerSize;
   @Nullable private Drawable trackIconActiveStart;
+  private boolean trackIconActiveStartMutated = false;
   @Nullable private Drawable trackIconActiveEnd;
+  private boolean trackIconActiveEndMutated = false;
   @Nullable private ColorStateList trackIconActiveColor;
   @Nullable private Drawable trackIconInactiveStart;
+  private boolean trackIconInactiveStartMutated = false;
   @Nullable private Drawable trackIconInactiveEnd;
+  private boolean trackIconInactiveEndMutated = false;
   @Nullable private ColorStateList trackIconInactiveColor;
   @Px private int trackIconSize;
   private int labelPadding;
@@ -368,7 +381,8 @@ abstract class BaseSlider<
 
   @NonNull private final Path trackPath = new Path();
   @NonNull private final RectF activeTrackRect = new RectF();
-  @NonNull private final RectF inactiveTrackRect = new RectF();
+  @NonNull private final RectF inactiveTrackLeftRect = new RectF();
+  @NonNull private final RectF inactiveTrackRightRect = new RectF();
   @NonNull private final RectF cornerRect = new RectF();
   @NonNull private final Rect labelRect = new Rect();
   @NonNull private final RectF iconRectF = new RectF();
@@ -1991,11 +2005,27 @@ abstract class BaseSlider<
    * @see #getTrackIconActiveStart()
    */
   public void setTrackIconActiveStart(@Nullable Drawable icon) {
-    if (this.trackIconActiveStart == icon) {
+    if (icon == trackIconActiveStart) {
       return;
     }
-    this.trackIconActiveStart = icon;
+
+    trackIconActiveStart = icon;
+    trackIconActiveStartMutated = false;
+    updateTrackIconActiveStart();
     invalidate();
+  }
+
+  private void updateTrackIconActiveStart() {
+    if (trackIconActiveStart != null) {
+      if (!trackIconActiveStartMutated && trackIconActiveColor != null) {
+        trackIconActiveStart = DrawableCompat.wrap(trackIconActiveStart).mutate();
+        trackIconActiveStartMutated = true;
+      }
+
+      if (trackIconActiveStartMutated) {
+        DrawableCompat.setTintList(trackIconActiveStart, trackIconActiveColor);
+      }
+    }
   }
 
   /**
@@ -2036,11 +2066,27 @@ abstract class BaseSlider<
    * @see #getTrackIconActiveEnd()
    */
   public void setTrackIconActiveEnd(@Nullable Drawable icon) {
-    if (this.trackIconActiveEnd == icon) {
+    if (icon == trackIconActiveEnd) {
       return;
     }
-    this.trackIconActiveEnd = icon;
+
+    trackIconActiveEnd = icon;
+    trackIconActiveEndMutated = false;
+    updateTrackIconActiveEnd();
     invalidate();
+  }
+
+  private void updateTrackIconActiveEnd() {
+    if (trackIconActiveEnd != null) {
+      if (!trackIconActiveEndMutated && trackIconActiveColor != null) {
+        trackIconActiveEnd = DrawableCompat.wrap(trackIconActiveEnd).mutate();
+        trackIconActiveEndMutated = true;
+      }
+
+      if (trackIconActiveEndMutated) {
+        DrawableCompat.setTintList(trackIconActiveEnd, trackIconActiveColor);
+      }
+    }
   }
 
   /**
@@ -2106,10 +2152,13 @@ abstract class BaseSlider<
    * @see #getTrackIconActiveColor()
    */
   public void setTrackIconActiveColor(@Nullable ColorStateList color) {
-    if (this.trackIconActiveColor == color) {
+    if (color == trackIconActiveColor) {
       return;
     }
-    this.trackIconActiveColor = color;
+
+    trackIconActiveColor = color;
+    updateTrackIconActiveStart();
+    updateTrackIconActiveEnd();
     invalidate();
   }
 
@@ -2134,11 +2183,27 @@ abstract class BaseSlider<
    * @see #getTrackIconInactiveStart()
    */
   public void setTrackIconInactiveStart(@Nullable Drawable icon) {
-    if (this.trackIconInactiveStart == icon) {
+    if (icon == trackIconInactiveStart) {
       return;
     }
-    this.trackIconInactiveStart = icon;
+
+    trackIconInactiveStart = icon;
+    trackIconInactiveStartMutated = false;
+    updateTrackIconInactiveStart();
     invalidate();
+  }
+
+  private void updateTrackIconInactiveStart() {
+    if (trackIconInactiveStart != null) {
+      if (!trackIconInactiveStartMutated && trackIconInactiveColor != null) {
+        trackIconInactiveStart = DrawableCompat.wrap(trackIconInactiveStart).mutate();
+        trackIconInactiveStartMutated = true;
+      }
+
+      if (trackIconInactiveStartMutated) {
+        DrawableCompat.setTintList(trackIconInactiveStart, trackIconInactiveColor);
+      }
+    }
   }
 
   /**
@@ -2179,11 +2244,27 @@ abstract class BaseSlider<
    * @see #getTrackIconInactiveEnd()
    */
   public void setTrackIconInactiveEnd(@Nullable Drawable icon) {
-    if (this.trackIconInactiveEnd == icon) {
+    if (icon == trackIconInactiveEnd) {
       return;
     }
-    this.trackIconInactiveEnd = icon;
+
+    trackIconInactiveEnd = icon;
+    trackIconInactiveEndMutated = false;
+    updateTrackIconInactiveEnd();
     invalidate();
+  }
+
+  private void updateTrackIconInactiveEnd() {
+    if (trackIconInactiveEnd != null) {
+      if (!trackIconInactiveEndMutated && trackIconInactiveColor != null) {
+        trackIconInactiveEnd = DrawableCompat.wrap(trackIconInactiveEnd).mutate();
+        trackIconInactiveEndMutated = true;
+      }
+
+      if (trackIconInactiveEndMutated) {
+        DrawableCompat.setTintList(trackIconInactiveEnd, trackIconInactiveColor);
+      }
+    }
   }
 
   /**
@@ -2223,10 +2304,13 @@ abstract class BaseSlider<
    * @see #getTrackIconInactiveColor()
    */
   public void setTrackIconInactiveColor(@Nullable ColorStateList color) {
-    if (this.trackIconInactiveColor == color) {
+    if (color == trackIconInactiveColor) {
       return;
     }
-    this.trackIconInactiveColor = color;
+
+    trackIconInactiveColor = color;
+    updateTrackIconInactiveStart();
+    updateTrackIconInactiveEnd();
     invalidate();
   }
 
@@ -2410,15 +2494,14 @@ abstract class BaseSlider<
 
     int yCenter = calculateTrackCenter();
 
-    float first = values.get(0);
-    float last = values.get(values.size() - 1);
-    if (last < valueTo || (values.size() > 1 && first > valueFrom)) {
-      drawInactiveTrack(canvas, trackWidth, yCenter);
+    drawInactiveTracks(canvas, trackWidth, yCenter);
+    drawActiveTracks(canvas, trackWidth, yCenter);
+
+    if (isRtl() || isVertical()) {
+      drawTrackIcons(canvas, activeTrackRect, inactiveTrackLeftRect);
+    } else {
+      drawTrackIcons(canvas, activeTrackRect, inactiveTrackRightRect);
     }
-    if (last > valueFrom) {
-      drawActiveTrack(canvas, trackWidth, yCenter);
-    }
-    drawTrackIcons(canvas, activeTrackRect, inactiveTrackRect);
 
     maybeDrawTicks(canvas);
     maybeDrawStopIndicator(canvas, yCenter);
@@ -2446,34 +2529,50 @@ abstract class BaseSlider<
     return isRtl() || isVertical() ? new float[] {right, left} : new float[] {left, right};
   }
 
-  private void drawInactiveTrack(@NonNull Canvas canvas, int width, int yCenter) {
-    int trackCornerSize = getTrackCornerSize();
+  private void drawInactiveTracks(@NonNull Canvas canvas, int width, int yCenter) {
+    populateInactiveTrackRightRect(width, yCenter);
+    updateTrack(
+        canvas,
+        inactiveTrackPaint,
+        inactiveTrackRightRect,
+        getTrackCornerSize(),
+        FullCornerDirection.RIGHT);
+
+    // Also draw inactive track to the left if there is any
+    populateInactiveTrackLeftRect(width, yCenter);
+    updateTrack(
+        canvas,
+        inactiveTrackPaint,
+        inactiveTrackLeftRect,
+        getTrackCornerSize(),
+        FullCornerDirection.LEFT);
+  }
+
+  private void populateInactiveTrackRightRect(int width, int yCenter) {
     float[] activeRange = getActiveRange();
     float right = trackSidePadding + activeRange[1] * width;
     if (right < trackSidePadding + width) {
-      inactiveTrackRect.set(
+      inactiveTrackRightRect.set(
           right + thumbTrackGapSize,
           yCenter - trackThickness / 2f,
-          trackSidePadding + width + trackCornerSize,
+          trackSidePadding + width + getTrackCornerSize(),
           yCenter + trackThickness / 2f);
-      updateTrack(
-          canvas,
-          inactiveTrackPaint,
-          inactiveTrackRect,
-          trackCornerSize,
-          FullCornerDirection.RIGHT);
+    } else {
+      inactiveTrackRightRect.setEmpty();
     }
+  }
 
-    // Also draw inactive track to the left if there is any
+  private void populateInactiveTrackLeftRect(int width, int yCenter) {
+    float[] activeRange = getActiveRange();
     float left = trackSidePadding + activeRange[0] * width;
     if (left > trackSidePadding) {
-      inactiveTrackRect.set(
-          trackSidePadding - trackCornerSize,
+      inactiveTrackLeftRect.set(
+          trackSidePadding - getTrackCornerSize(),
           yCenter - trackThickness / 2f,
           left - thumbTrackGapSize,
           yCenter + trackThickness / 2f);
-      updateTrack(
-          canvas, inactiveTrackPaint, inactiveTrackRect, trackCornerSize, FullCornerDirection.LEFT);
+    } else {
+      inactiveTrackLeftRect.setEmpty();
     }
   }
 
@@ -2489,10 +2588,14 @@ abstract class BaseSlider<
     return normalized;
   }
 
-  private void drawActiveTrack(@NonNull Canvas canvas, int width, int yCenter) {
+  private void drawActiveTracks(@NonNull Canvas canvas, int width, int yCenter) {
     float[] activeRange = getActiveRange();
     float right = trackSidePadding + activeRange[1] * width;
     float left = trackSidePadding + activeRange[0] * width;
+    if (left >= right) {
+      activeTrackRect.setEmpty();
+      return;
+    }
 
     FullCornerDirection direction = FullCornerDirection.NONE;
     if (values.size() == 1) { // Only 1 thumb
@@ -2532,6 +2635,7 @@ abstract class BaseSlider<
 
       // Nothing to draw if left is bigger than right.
       if (left >= right) {
+        activeTrackRect.setEmpty();
         continue;
       }
 
@@ -2569,32 +2673,42 @@ abstract class BaseSlider<
       @NonNull Canvas canvas,
       @NonNull RectF activeTrackBounds,
       @NonNull RectF inactiveTrackBounds) {
+    if (!hasTrackIcons()) {
+      return;
+    }
+
     if (values.size() > 1) {
       Log.w(TAG, "Track icons can only be used when only 1 thumb is present.");
     }
 
     // draw track start icons
     calculateBoundsAndDrawTrackIcon(
-        canvas, activeTrackBounds, trackIconActiveStart, trackIconActiveColor, true);
+        canvas, activeTrackBounds, trackIconActiveStart, true);
     calculateBoundsAndDrawTrackIcon(
-        canvas, inactiveTrackBounds, trackIconInactiveStart, trackIconInactiveColor, true);
+        canvas, inactiveTrackBounds, trackIconInactiveStart, true);
     // draw track end icons
     calculateBoundsAndDrawTrackIcon(
-        canvas, activeTrackBounds, trackIconActiveEnd, trackIconActiveColor, false);
+        canvas, activeTrackBounds, trackIconActiveEnd, false);
     calculateBoundsAndDrawTrackIcon(
-        canvas, inactiveTrackBounds, trackIconInactiveEnd, trackIconInactiveColor, false);
+        canvas, inactiveTrackBounds, trackIconInactiveEnd, false);
+  }
+
+  private boolean hasTrackIcons() {
+    return trackIconActiveStart != null
+        || trackIconActiveEnd != null
+        || trackIconInactiveStart != null
+        || trackIconInactiveEnd != null;
   }
 
   private void calculateBoundsAndDrawTrackIcon(
       @NonNull Canvas canvas,
       @NonNull RectF trackBounds,
       @Nullable Drawable icon,
-      @Nullable ColorStateList iconColor,
       boolean isStart) {
     if (icon != null) {
       calculateTrackIconBounds(trackBounds, iconRectF, trackIconSize, isStart);
       if (!iconRectF.isEmpty()) {
-        drawTrackIcon(canvas, iconRectF, icon, iconColor);
+        drawTrackIcon(canvas, iconRectF, icon);
       }
     }
   }
@@ -2602,9 +2716,7 @@ abstract class BaseSlider<
   private void drawTrackIcon(
       @NonNull Canvas canvas,
       @NonNull RectF iconBounds,
-      @NonNull Drawable icon,
-      @Nullable ColorStateList color) {
-    DrawableCompat.setTintList(icon, color);
+      @NonNull Drawable icon) {
     if (isVertical()) {
       rotationMatrix.mapRect(iconBounds);
     }
@@ -2652,6 +2764,10 @@ abstract class BaseSlider<
 
   private void updateTrack(
       Canvas canvas, Paint paint, RectF bounds, float cornerSize, FullCornerDirection direction) {
+    if (bounds.isEmpty()) {
+      return;
+    }
+
     float leftCornerSize = calculateStartTrackCornerSize(cornerSize);
     float rightCornerSize = calculateEndTrackCornerSize(cornerSize);
     switch (direction) {
@@ -2821,7 +2937,7 @@ abstract class BaseSlider<
       @NonNull Canvas canvas, int width, int top, float value, @NonNull Drawable thumbDrawable) {
     canvas.save();
     if (isVertical()) {
-      canvas.setMatrix(rotationMatrix);
+      canvas.concat(rotationMatrix);
     }
     canvas.translate(
         trackSidePadding
@@ -3180,6 +3296,8 @@ abstract class BaseSlider<
   }
 
   private void updateLabels() {
+    updateLabelPivots();
+
     switch (labelBehavior) {
       case LABEL_GONE:
         ensureLabelsRemoved();
@@ -3201,6 +3319,29 @@ abstract class BaseSlider<
         break;
       default:
         throw new IllegalArgumentException("Unexpected labelBehavior: " + labelBehavior);
+    }
+  }
+
+  private void updateLabelPivots() {
+    // Set the pivot point so that the label pops up in the direction from the thumb.
+    final float labelPivotX;
+    final float labelPivotY;
+
+    final boolean isVertical = isVertical();
+    final boolean isRtl = isRtl();
+    if (isVertical && isRtl) {
+      labelPivotX = RIGHT_LABEL_PIVOT_X;
+      labelPivotY = RIGHT_LABEL_PIVOT_Y;
+    } else if (isVertical) {
+      labelPivotX = LEFT_LABEL_PIVOT_X;
+      labelPivotY = LEFT_LABEL_PIVOT_Y;
+    } else {
+      labelPivotX = TOP_LABEL_PIVOT_X;
+      labelPivotY = TOP_LABEL_PIVOT_Y;
+    }
+
+    for (TooltipDrawable label : labels) {
+      label.setPivots(labelPivotX, labelPivotY);
     }
   }
 
