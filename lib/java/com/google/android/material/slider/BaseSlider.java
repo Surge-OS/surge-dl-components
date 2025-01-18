@@ -240,8 +240,6 @@ abstract class BaseSlider<
           + " stepSize(%s)";
   private static final String EXCEPTION_ILLEGAL_VALUE_FROM =
       "valueFrom(%s) must be smaller than valueTo(%s)";
-  private static final String EXCEPTION_ILLEGAL_VALUE_TO =
-      "valueTo(%s) must be greater than valueFrom(%s)";
   private static final String EXCEPTION_ILLEGAL_STEP_SIZE =
       "The stepSize(%s) must be 0, or a factor of the valueFrom(%s)-valueTo(%s) range";
   private static final String EXCEPTION_ILLEGAL_MIN_SEPARATION =
@@ -349,6 +347,7 @@ abstract class BaseSlider<
   private boolean trackIconInactiveEndMutated = false;
   @Nullable private ColorStateList trackIconInactiveColor;
   @Px private int trackIconSize;
+  @Px private int trackIconPadding;
   private int labelPadding;
   private float touchDownX;
   private MotionEvent lastEvent;
@@ -518,6 +517,8 @@ abstract class BaseSlider<
     minTickSpacing = resources.getDimensionPixelSize(R.dimen.mtrl_slider_tick_min_spacing);
 
     labelPadding = resources.getDimensionPixelSize(R.dimen.mtrl_slider_label_padding);
+
+    trackIconPadding = resources.getDimensionPixelOffset(R.dimen.m3_slider_track_icon_padding);
   }
 
   private void processAttributes(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -667,20 +668,6 @@ abstract class BaseSlider<
     return true;
   }
 
-  private void validateValueFrom() {
-    if (valueFrom >= valueTo) {
-      throw new IllegalStateException(
-          String.format(EXCEPTION_ILLEGAL_VALUE_FROM, valueFrom, valueTo));
-    }
-  }
-
-  private void validateValueTo() {
-    if (valueTo <= valueFrom) {
-      throw new IllegalStateException(
-          String.format(EXCEPTION_ILLEGAL_VALUE_TO, valueTo, valueFrom));
-    }
-  }
-
   private boolean valueLandsOnTick(float value) {
     // Check that the value is a multiple of stepSize given the offset of valueFrom.
     double result =
@@ -709,6 +696,11 @@ abstract class BaseSlider<
   }
 
   private void validateValues() {
+    if (valueFrom >= valueTo) {
+      throw new IllegalStateException(
+          String.format(EXCEPTION_ILLEGAL_VALUE_FROM, valueFrom, valueTo));
+    }
+
     for (Float value : values) {
       if (value < valueFrom || value > valueTo) {
         throw new IllegalStateException(
@@ -762,10 +754,8 @@ abstract class BaseSlider<
 
   private void validateConfigurationIfDirty() {
     if (dirtyConfig) {
-      validateValueFrom();
-      validateValueTo();
-      validateStepSize();
       validateValues();
+      validateStepSize();
       validateMinSeparation();
       warnAboutFloatingPointError();
       dirtyConfig = false;
@@ -2023,7 +2013,7 @@ abstract class BaseSlider<
       }
 
       if (trackIconActiveStartMutated) {
-        DrawableCompat.setTintList(trackIconActiveStart, trackIconActiveColor);
+        trackIconActiveStart.setTintList(trackIconActiveColor);
       }
     }
   }
@@ -2084,7 +2074,7 @@ abstract class BaseSlider<
       }
 
       if (trackIconActiveEndMutated) {
-        DrawableCompat.setTintList(trackIconActiveEnd, trackIconActiveColor);
+        trackIconActiveEnd.setTintList(trackIconActiveColor);
       }
     }
   }
@@ -2201,7 +2191,7 @@ abstract class BaseSlider<
       }
 
       if (trackIconInactiveStartMutated) {
-        DrawableCompat.setTintList(trackIconInactiveStart, trackIconInactiveColor);
+        trackIconInactiveStart.setTintList(trackIconInactiveColor);
       }
     }
   }
@@ -2262,7 +2252,7 @@ abstract class BaseSlider<
       }
 
       if (trackIconInactiveEndMutated) {
-        DrawableCompat.setTintList(trackIconInactiveEnd, trackIconInactiveColor);
+        trackIconInactiveEnd.setTintList(trackIconInactiveColor);
       }
     }
   }
@@ -2464,8 +2454,7 @@ abstract class BaseSlider<
         if (isVertical()) {
           rotationMatrix.mapPoints(haloBounds);
         }
-        DrawableCompat.setHotspotBounds(
-            background,
+        background.setHotspotBounds(
             (int) haloBounds[0],
             (int) haloBounds[1],
             (int) haloBounds[2],
@@ -2706,7 +2695,7 @@ abstract class BaseSlider<
       @Nullable Drawable icon,
       boolean isStart) {
     if (icon != null) {
-      calculateTrackIconBounds(trackBounds, iconRectF, trackIconSize, isStart);
+      calculateTrackIconBounds(trackBounds, iconRectF, trackIconSize, trackIconPadding, isStart);
       if (!iconRectF.isEmpty()) {
         drawTrackIcon(canvas, iconRectF, icon);
       }
@@ -2726,28 +2715,24 @@ abstract class BaseSlider<
   }
 
   private void calculateTrackIconBounds(
-      @NonNull RectF trackBounds, @NonNull RectF iconBounds, @Px int iconSize, boolean isStart) {
-    float iconPadding = getResources().getDimension(R.dimen.m3_slider_track_icon_padding);
-    float iconLeft;
-    if (isStart) {
-      iconLeft =
-          isRtl() || isVertical()
-              ? trackBounds.right - iconSize - iconPadding
-              : trackBounds.left + iconPadding;
-    } else {
-      iconLeft =
-          isRtl() || isVertical()
+      @NonNull RectF trackBounds,
+      @NonNull RectF iconBounds,
+      @Px int iconSize,
+      @Px int iconPadding,
+      boolean isStart) {
+    if (trackBounds.right - trackBounds.left >= iconSize + 2 * iconPadding) {
+      float iconLeft =
+          (isStart ^ (isRtl() || isVertical()))
               ? trackBounds.left + iconPadding
-              : trackBounds.right - iconSize - iconPadding;
-    }
-    float iconRight = iconLeft + iconSize;
-    int iconTop = calculateTrackCenter() - iconSize / 2;
-    if (trackBounds.left > iconLeft - iconPadding || trackBounds.right < iconRight + iconPadding) {
+              : trackBounds.right - iconPadding - iconSize;
+      float iconTop = calculateTrackCenter() - iconSize / 2f;
+      float iconRight = iconLeft + iconSize;
+      float iconBottom = iconTop + iconSize;
+      iconBounds.set(iconLeft, iconTop, iconRight, iconBottom);
+    } else {
       // not enough space to draw icon
       iconBounds.setEmpty();
-      return;
     }
-    iconBounds.set(iconLeft, iconTop, iconRight, iconTop + iconSize);
   }
 
   private boolean hasGapBetweenThumbAndTrack() {
